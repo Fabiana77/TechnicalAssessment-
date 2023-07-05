@@ -1,0 +1,50 @@
+Ejercicios de Bases de Datos - Prueba Tecnica 
+
+Por Fabiana Parra: 
+
+Ejercicio 4:
+a. CREATE TABLE Oficinas (
+    ID INT NOT NULL,
+    Nombre VARCHAR(255) NOT NULL,
+    Direccion VARCHAR(255) NOT NULL,
+    Ciudad VARCHAR(255) NOT NULL,
+    Estado VARCHAR(255) NOT NULL,
+    Pais VARCHAR(255) NOT NULL,
+    Division INT NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+b. 
+CREATE PROCEDURE InsertOrUpdateOficina(
+    IN pOption INT,
+    IN pID INT,
+    IN pNombre VARCHAR(255),
+    IN pDireccion VARCHAR(255),
+    IN pCiudad VARCHAR(255),
+    IN pEstado VARCHAR(255),
+    IN pPais VARCHAR(255),
+    IN pDivision INT
+)
+BEGIN
+    IF p_Option = 1 THEN
+        INSERT INTO Oficinas (ID, Nombre, Direccion, Ciudad, Estado, Pais, Division)
+        VALUES (pID, pNombre, pDireccion, pCiudad, pEstado, pPais, pDivision);
+    ELSE
+        UPDATE Oficinas
+        SET Direccion = p_Direccion
+        WHERE ID = p_ID;
+    END IF;
+END;
+
+Ejercicio 5:
+
+
+CREATE TRIGGER Trigger_InserInto_Oficina
+BEFORE INSERT ON Oficinas
+FOR EACH ROW
+BEGIN
+    DECLARE newID INT;
+    SELECT NEXTVAL('IDOFICINA_SEC') INTO newID;
+ 
+    SET NEW.ID = newID;
+END 
